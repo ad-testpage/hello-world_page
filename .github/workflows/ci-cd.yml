@@ -40,12 +40,20 @@ jobs:
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: github-actions  # Omogoči Pages, če še niso aktivni
 
       - name: Build site with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: .
           destination: ./_site
+
+      - name: Upload Pages artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: ./_site  # folder, ki ga je ustvaril Jekyll build
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
